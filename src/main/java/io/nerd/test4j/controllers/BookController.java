@@ -7,6 +7,7 @@ package io.nerd.test4j.controllers;
 import io.nerd.test4j.model.Book;
 import io.nerd.test4j.service.BookService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -35,13 +36,13 @@ public class BookController {
     }
 
     @PostMapping("/")
-    public Book addBook(@RequestBody Book book) {
-        return bookService.addBook(book);
+    public ResponseEntity<Book> addBook(@RequestBody Book book) {
+        return new ResponseEntity<>(bookService.addBook(book), HttpStatus.CREATED);
     }
 
     @DeleteMapping("/{id}")
-    public Book deleteById(@PathVariable int id) {
-        return bookService.deleteById(id);
+    public ResponseEntity<Book> deleteById(@PathVariable int id) {
+        return  ResponseEntity.ok(bookService.deleteById(id));
     }
 
 }
